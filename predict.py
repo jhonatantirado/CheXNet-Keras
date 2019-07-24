@@ -64,19 +64,34 @@ if __name__ == "__main__":
         weights_path=model_weights_path)
 
     # image path
-    img_path = 'data/images/00001035_000.PNG'
-
+    img_path_001 = 'data/images/00000001_000.PNG'
+    img_path_002 = 'data/images_002/images/00001336_000.PNG'
+    img_path_003 = 'data/images_003/images/00003923_014.PNG'
     # load a single image
-    new_image = load_image(img_path)
-	
-    #print (new_image)
-
+    new_image_001 = load_image(img_path_001)
+    new_image_002 = load_image(img_path_002)
+    new_image_003 = load_image(img_path_003)
     # check prediction
-    pred = model.predict(new_image)
+    pred_001 = model.predict(new_image_001)
+    pred_002 = model.predict(new_image_002)
+    pred_003 = model.predict(new_image_003)
 	
-    print (pred)
+    print (pred_001)
+    print (pred_002)
+    print (pred_003)
 	
-    result = tf.argmax(pred, 1)
-    predicted_class = tf.keras.backend.eval(result)
-    print (predicted_class)
-    print (class_names[predicted_class[0]])
+    result_001 = tf.argmax(pred_001, 1)
+    result_002 = tf.argmax(pred_002, 1)
+    result_003 = tf.argmax(pred_003, 1)
+	
+    predicted_class_001 = tf.keras.backend.eval(result_001)
+    predicted_class_002 = tf.keras.backend.eval(result_002)
+    predicted_class_003 = tf.keras.backend.eval(result_003)
+	
+    print (predicted_class_001)
+    print (predicted_class_002)
+    print (predicted_class_003)
+	
+    print (class_names[predicted_class_001[0]])
+    print (class_names[predicted_class_002[0]])
+    print (class_names[predicted_class_003[0]])
