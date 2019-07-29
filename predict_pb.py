@@ -19,6 +19,7 @@ def load_image(img_path, show=False):
 
     img = image.load_img(img_path, target_size=(224, 224))
     img_tensor = image.img_to_array(img,data_format='channels_first')# (channels, height, width)
+    # img_tensor = image.img_to_array(img)# (height, width, channels)
     img_tensor = np.expand_dims(img_tensor, axis=0)
     img_tensor /= 255.
 
