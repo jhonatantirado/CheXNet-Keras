@@ -1,10 +1,7 @@
-from keras.models import load_model
 from keras.preprocessing import image
-import matplotlib.pyplot as plt
 import numpy as np
 import os
 from configparser import ConfigParser
-from models.keras import ModelFactory
 import tensorflow as tf
 
 def load_pb(path_to_pb):
@@ -18,8 +15,9 @@ def load_pb(path_to_pb):
 def load_image(img_path, show=False):
 
     img = image.load_img(img_path, target_size=(224, 224))
-    img_tensor = image.img_to_array(img,data_format='channels_first')# (channels, height, width)
-    # img_tensor = image.img_to_array(img)# (height, width, channels)
+    # img_tensor = image.img_to_array(img,data_format='channels_first')# (channels, height, width)
+    img_tensor = image.img_to_array(img)# (height, width, channels)
+    img_tensor = img_tensor.transpose(2,0,1)
     img_tensor = np.expand_dims(img_tensor, axis=0)
     img_tensor /= 255.
 
@@ -49,5 +47,8 @@ if __name__ == "__main__":
     with tf.Session(graph=graph) as sess:
         input = graph.get_tensor_by_name("input:0")
         feed_dict ={input:new_image_001}
+        # max_pool = graph.get_tensor_by_name("max_pool:0")
+        # max_pool = tf.transpose(max_pool, perm= [0,2,3,1])
         op_to_restore = graph.get_operation_by_name("Sigmoid")
+        # print (sess.run(max_pool))
         print (sess.run(op_to_restore,feed_dict))
